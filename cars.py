@@ -33,8 +33,8 @@ stealth(driver,
 )
 
 def car(vin, zip, part):
-    driver.get("https://vpic.nhtsa.dot.gov/decoder/Decoder?VIN=" + vin + "&ModelYear=")
-    time.sleep(0.5)
+    driver.uc_open("https://vpic.nhtsa.dot.gov/decoder/Decoder?VIN=" + vin + "&ModelYear=")
+    driver.sleep(0.5)
     modelYear = driver.find_element("id","decodedModelYear").get_attribute("textContent")
     make = driver.find_element("id","decodedMake").get_attribute("textContent")
     model = driver.find_element("id","decodedModel").get_attribute("textContent")
@@ -43,14 +43,14 @@ def car(vin, zip, part):
     # For specific make based sites
     # match make:
     #     case "FORD":
-            # driver.get("https://parts.ford.com")
-            # time.sleep(0.5)
+            # driver.uc_open("https://parts.ford.com")
+            # driver.sleep(0.5)
             # driver.find_element(By.XPATH, "//div[@id='tabVin']/button").click()
-            # time.sleep(0.5)
+            # driver.sleep(0.5)
             # driver.find_element("id","vinNumber_globSearch").send_keys(vin)
             # driver.find_element("id", "searchTermPartNumvin").send_keys(part)
             # catalog = driver.find_element("id","vinNumButton_globSearch")
-            # time.sleep(1)
+            # driver.sleep(1)
             # try:
             #     cookies = driver.find_element(By.XPATH, "//div[@id='onetrust-close-btn-container']/button")
             #     cookies.click()
@@ -67,9 +67,9 @@ def car(vin, zip, part):
             #     except:
             #         pass
             # driver.find_element("id","cityGoHomePage").click()
-            # time.sleep(1)
+            # driver.sleep(1)
             # driver.find_element(By.CSS_SELECTOR, "td.dealerName a.ng-binding").click()
-            # time.sleep(0.5)
+            # driver.sleep(0.5)
             # driver.find_element("id", "SimpleSearchForm_SearchTerm").send_keys(part)
             # driver.find_element("id", "searchTermButton").click()
         # case "MAZDA":
@@ -81,22 +81,22 @@ def car(vin, zip, part):
 
     # Try oempartsonline
     # try:
-    #     driver.get("https://" + make + ".oempartsonline.com/search?search_str=" + part.replace(" ","%20") + "&make=" + make.lower() + "&model=" + model.lower() + "&year=" + modelYear + "&page_id=&page_url=")
-    #     time.sleep(0.5)
+    #     driver.uc_open("https://" + make + ".oempartsonline.com/search?search_str=" + part.replace(" ","%20") + "&make=" + make.lower() + "&model=" + model.lower() + "&year=" + modelYear + "&page_id=&page_url=")
+    #     driver.sleep(0.5)
     #     driver.find_element("id","cmsgpf-close-btn").click()
-    #     time.sleep(0.5)
+    #     driver.sleep(0.5)
     #     pass
     # except Exception as e:
     #     print(e)
     
     # Try napaautoparts
     try:
-        driver.get("https://www.napaonline.com/en/search?text=" + part.replace(" ","%20") + "&referer=v2")
+        driver.uc_open("https://www.napaonline.com/en/search?text=" + part.replace(" ","%20") + "&referer=v2")
         
-        # driver.get("https://www.napaonline.com")
-        # time.sleep(0.5)
+        # driver.uc_open("https://www.napaonline.com")
+        # driver.sleep(0.5)
         # #driver.find_element("id","cmsgpf-close-btn").click()
-        # time.sleep(0.5)
+        # driver.sleep(0.5)
         # driver.find_element("id", "geo-inputText").send_keys(part)
         # driver.find_element("id","search-icon").click()
         # while True:
@@ -105,9 +105,9 @@ def car(vin, zip, part):
         #         break
         #     except:
         #         print("click")
-        time.sleep(15)
+        driver.sleep(15)
         driver.find_element(By.CSS_SELECTOR, "#WepX1 > div > label > input[type=checkbox]").click() 
-        time.sleep(15)
+        driver.sleep(15)
         driver.find_element("id", modelYear).click()
         driver.find_element("id", make.capitalize()).click()
         driver.find_element("id", model.capitalize()).click()
@@ -118,7 +118,7 @@ def car(vin, zip, part):
         print(e)
 
 
-    time.sleep(100)
+    driver.sleep(100)
 
 car("1FMCU0MN1RUA03532", 68521, "wiper blades")
 driver.quit()
